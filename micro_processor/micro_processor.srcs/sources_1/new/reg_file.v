@@ -13,7 +13,7 @@ module reg_file(clk, rstd, wr, ra1, ra2, wa, wren, rr1, rr2);
     if(rstd == 0) rf[0] <= 32'h00000000;
     else if(wren == 0) rf[wa] <= wr;
 
-  initial $monitor($time, " (reg_file) clk=%d, wr=%h, ra1=%h, ra2=%h, wa=%d, wren=%d, rr1=%h, rr2=%h", clk, wr, ra1, ra2, wa, wren, rr1, rr2);
+  // initial $monitor($time, " (reg_file) clk=%d, wr=%h, ra1=%h, ra2=%h, wa=%d, wren=%d, rr1=%h, rr2=%h", clk, wr, ra1, ra2, wa, wren, rr1, rr2);
   initial $monitor($time, " rf[0]=%d", rf[0]);
   initial $monitor($time, " rf[1]=%d", rf[1]);
   initial $monitor($time, " rf[2]=%d", rf[2]);

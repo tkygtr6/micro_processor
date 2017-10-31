@@ -131,6 +131,6 @@ endfunction
   assign branch = nonbranch + dpl_imm;
   assign nextpc = npc(op, reg1, reg2, branch, nonbranch, addr);
 
-  initial $monitor($time, "(execute) clk=%h, ins=%h, pc=%b, reg1=%h, reg2=%h, wra=%h, result=%h, op=%h, shift=%h, operation=%h, addr=%b, dpl_imm=%b, operand2=%h, alu_result=%h, nonbranch=%h, branch=%h, mem_address=%h, dm_r_data=%h, wren=%b",clk,ins,pc,reg1,reg2,wra,result,op,shift,operation,addr, dpl_imm, operand2, alu_result,nonbranch,branch, mem_address, dm_r_data, wren);
+  // initial $monitor($time, "(execute) clk=%h, ins=%h, pc=%b, reg1=%h, reg2=%h, wra=%h, result=%h, op=%h, shift=%h, operation=%h, addr=%b, dpl_imm=%b, operand2=%h, alu_result=%h, nonbranch=%h, branch=%h, mem_address=%h, dm_r_data=%h, wren=%b",clk,ins,pc,reg1,reg2,wra,result,op,shift,operation,addr, dpl_imm, operand2, alu_result,nonbranch,branch, mem_address, dm_r_data, wren);
 
 endmodule
