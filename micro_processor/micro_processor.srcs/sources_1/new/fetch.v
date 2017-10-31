@@ -21,9 +21,11 @@
 
 
 module fetch(pc, ins);
-  input [31:0] pc;
+  input [7:0] pc;
   output [31:0] ins;
   reg [31:0] ins_mem [0:255];
   initial $readmemb("/home/denjo/micro_processor/micro_processor/micro_processor.srcs/sources_1/new/sample.bnr",ins_mem);
   assign ins = ins_mem[pc];
+
+  initial $monitor($time, " pc=%h ins=%b ins_mem=%b", pc, ins, ins_mem[0]);
 endmodule

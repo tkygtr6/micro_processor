@@ -11,7 +11,7 @@
 // Tool Versions:
 // Description:
 //
-// Dependencies:
+// Dependencies:d
 //
 // Revision:
 // Revision 0.01 - File Created
@@ -63,7 +63,7 @@ endfunction
 
 function[31:0] calc;
   input [5:0] op;
-  input [31:0] alu_res, lt, dpl_imm, dm_r_data, pc;
+  input [31:0] alu_res, dpl_imm, dm_r_data, pc;
   case(op)
     6'd0, 6'd1, 6'd4, 6'd5, 6'd6: calc = alu_res;
     6'd3: calc = dpl_imm << 16;
@@ -93,6 +93,7 @@ function [4:0] wreg;
   input [5:0] op;
   input [4:0] rt, rd;
   case(op)
+    6'd0: wreg=rd;
     6'd1, 6'd3, 6'd4, 6'd5, 6'd6, 6'd16, 6'd20: wreg = rt;
     6'd41: wreg = 5'd31;
     default: wreg = 5'd0;
@@ -114,6 +115,7 @@ endfunction
   assign operation = ins[4:0];
   assign dpl_imm = {{16{ins[15]}}, ins[15:0]};
   assign alu_result = alu(opr_gen(op, operation), shift, reg1, operand2);
+  assign operand2 = (op==6'd0)? reg2:dpl_imm;
   assign mem_address = (reg1 + dpl_imm) >>> 2;
   assign wren = wrengen(op);
   data_mem data_mem_body0(mem_address[7:0], clk, reg2[7:0], wren[0], dm_r_data[7:0]);
@@ -128,5 +130,7 @@ endfunction
   assign nonbranch = pc + 32'd1;
   assign branch = nonbranch + dpl_imm;
   assign nextpc = npc(op, reg1, reg2, branch, nonbranch, addr);
+
+  initial $monitor($time, "(execute) clk=%h, ins=%h, pc=%b, reg1=%h, reg2=%h, wra=%h, result=%h, op=%h, shift=%h, operation=%h, addr=%b, dpl_imm=%b, operand2=%h, alu_result=%h, nonbranch=%h, branch=%h, mem_address=%h, dm_r_data=%h, wren=%b",clk,ins,pc,reg1,reg2,wra,result,op,shift,operation,addr, dpl_imm, operand2, alu_result,nonbranch,branch, mem_address, dm_r_data, wren);
 
 endmodule
