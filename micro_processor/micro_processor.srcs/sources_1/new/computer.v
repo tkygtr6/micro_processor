@@ -26,11 +26,11 @@ module computer(clk, rstd);
   wire[4:0] wra;
   wire[3:0] wren;
 
-    fetch fetch_body(pc[7:0], ins);
+    fetch fetch_body(pc[15:0], ins);
     execute execute_body(clk, ins, pc, reg1, reg2, wra, result, nextpc);
     writeback writeback_body(clk, rstd, nextpc, pc);
     reg_file rf_body(clk, rstd, result, ins[25:21], ins[20:16], wra, (~| wra), reg1, reg2);
 
-    initial $monitor($time, "rstd=%d, clk=%d, pc=%h, ins=%b, wra=%h, reg1=%h, reg2=%h", rstd, clk, pc, ins, wra, reg1, reg2);
+    // initial $monitor($time, "rstd=%d, clk=%d, pc=%h, ins=%b, wra=%h, reg1=%h, reg2=%h", rstd, clk, pc, ins, wra, reg1, reg2);
 
 endmodule

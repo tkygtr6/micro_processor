@@ -70,7 +70,7 @@ function[31:0] calc;
     6'd16: calc = dm_r_data;
     6'd18: calc = {{16{dm_r_data[15]}}, dm_r_data[15:0]};
     6'd20: calc = {{24{dm_r_data[7]}}, dm_r_data[7:0]};
-    6'd41: calc = pc + 32'd1;
+    6'd41: calc = pc + 32'd4;
     default: calc = 32'hffffffff;
   endcase
 endfunction
@@ -116,7 +116,7 @@ endfunction
   assign dpl_imm = {{16{ins[15]}}, ins[15:0]};
   assign alu_result = alu(opr_gen(op, operation), shift, reg1, operand2);
   assign operand2 = (op==6'd0)? reg2:dpl_imm;
-  assign mem_address = (reg1 + dpl_imm) >>> 2;
+  assign mem_address = (reg1 + dpl_imm) >> 2;
   assign wren = wrengen(op);
   data_mem data_mem_body0(mem_address[7:0], clk, reg2[7:0], wren[0], dm_r_data[7:0]);
   data_mem data_mam_body1(mem_address[7:0], clk, reg2[15:8], wren[1], dm_r_data[15:8]);
@@ -127,7 +127,7 @@ endfunction
   assign result = calc(op, alu_result, dpl_imm, dm_r_data, pc);
 
   assign addr = ins[25:0];
-  assign nonbranch = pc + 32'd1;
+  assign nonbranch = pc + 32'd4;
   assign branch = nonbranch + dpl_imm;
   assign nextpc = npc(op, reg1, reg2, branch, nonbranch, addr);
 

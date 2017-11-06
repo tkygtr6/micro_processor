@@ -27,5 +27,18 @@ module reg_file(clk, rstd, wr, ra1, ra2, wa, wren, rr1, rr2);
   initial $monitor($time, " rf[10]=%d", rf[10]);
   initial $monitor($time, " rf[11]=%d", rf[11]);
   initial $monitor($time, " rf[12]=%d", rf[12]);
-
+  initial $monitor($time, " rf[13]=%d", rf[13]);
+  initial $monitor($time, " rf[14]=%d", rf[14]);
+  initial $monitor($time, " rf[15]=%d", rf[15]);
+  initial $monitor($time, " rf[16]=%d", rf[16]);
+  initial $monitor($time, " rf[17]=%d", rf[17]);
+  initial $monitor($time, " rf[18]=%d", rf[18]);
+  initial $monitor($time, " rf[19]=%d", rf[19]);
+  initial $monitor($time, " rf[20]=%d", rf[20]);
+  initial $monitor($time, " rf[21]=%d", rf[21]);
+  initial $monitor($time, " rf[22]=%d", rf[22]);
+  initial $monitor($time, " rf[23]=%d", rf[23]);
+  initial $monitor($time, " rf[24]=%d", rf[24]);
+  initial $monitor($time, " rf[25]=%d", rf[25]);
+  initial $monitor($time, " rf[26]=%d", rf[26]);
 endmodule
