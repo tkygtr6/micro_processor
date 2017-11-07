@@ -20,11 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module execute(clk, ins, pc, reg1, reg2, wra, result, nextpc);
+module execute(clk, ins, pc, reg1, reg2, wra, result, nextpc, halt);
   input clk;
   input[31:0]ins, pc, reg1, reg2;
   output[4:0]wra;
   output[31:0]result, nextpc;
+  output halt;
   wire[5:0]op;
   wire[4:0]shift, operation;
   wire[25:0]addr;
@@ -110,6 +111,14 @@ function [3:0] wrengen;
   endcase
 endfunction
 
+function haltgen;
+  input[5:0]op;
+  case(op)
+    6'd63:haltgen=1'b1;
+    default:haltgen=1'b0;
+  endcase
+endfunction
+
   assign op = ins[31:26];
   assign shift = ins[10:6];
   assign operation = ins[4:0];
@@ -130,6 +139,10 @@ endfunction
   assign nonbranch = pc + 32'd4;
   assign branch = nonbranch + dpl_imm;
   assign nextpc = npc(op, reg1, reg2, branch, nonbranch, addr);
+
+  assign halt = haltgen(op);
+
+
 
   // initial $monitor($time, "(execute) clk=%h, ins=%h, pc=%b, reg1=%h, reg2=%h, wra=%h, result=%h, op=%h, shift=%h, operation=%h, addr=%b, dpl_imm=%b, operand2=%h, alu_result=%h, nonbranch=%h, branch=%h, mem_address=%h, dm_r_data=%h, wren=%b",clk,ins,pc,reg1,reg2,wra,result,op,shift,operation,addr, dpl_imm, operand2, alu_result,nonbranch,branch, mem_address, dm_r_data, wren);
 
