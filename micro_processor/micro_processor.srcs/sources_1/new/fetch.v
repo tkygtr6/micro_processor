@@ -25,7 +25,7 @@ module fetch(pc, ins);
   output [31:0] ins;
   reg [31:0] ins_mem [0:255];
   wire [31:0] pc_bit2, pc_bit3;
-  initial $readmemb("/home/denjo/micro_processor/micro_processor/micro_processor.srcs/sources_1/new/sample4.bin",ins_mem);
+  initial $readmemb("/home/denjo/micro_processor/micro_processor/micro_processor.srcs/sources_1/new/assembly/sample3.bin",ins_mem);
   assign ins = ins_mem[pc>>2];
   assign pc_bit2 = pc >> 2;
   assign pc_bit3 = pc >>> 2;
