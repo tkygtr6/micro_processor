@@ -123,17 +123,15 @@ function [31:0] gen_dpl_imm;
   input [5:0] op;
   input [31:0] ins;
   case(op)
-    6'd5: gen_dpl_imm = {{16{1'b0}}, ins[15:0]};
-    6'd5: gen_dpl_imm = {{16{ins[15]}}, ins[15:0]};
-    6'd6: gen_dpl_imm = {{16{1'b0}}, ins[15:0]};
-    default: gen_dpl_imm = {{16{ins[15]}}, ins[15:0]};
+    6'd4,6'd5,6'd6: gen_dpl_imm = {{16{1'b0}}, ins[15:0]};
+    default:gen_dpl_imm = {{16{ins[15]}}, ins[15:0]};
   endcase
 endfunction
 
   assign op = ins[31:26];
   assign shift = ins[10:6];
   assign operation = ins[4:0];
-  assign dpl_imm = gen_dpl_imm(op, ins); 
+  assign dpl_imm = gen_dpl_imm(op, ins);
   assign alu_result = alu(opr_gen(op, operation), shift, reg1, operand2);
   assign operand2 = (op==6'd0)? reg2:dpl_imm;
   assign mem_address = (reg1 + dpl_imm) >> 2;
